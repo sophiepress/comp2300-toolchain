@@ -1,6 +1,8 @@
-TOOLCHAIN_DARWIN=https://github.com/xpack-dev-tools/arm-none-eabi-gcc-xpack/releases/download/v10.3.1-2.3/xpack-arm-none-eabi-gcc-10.3.1-2.3-darwin-x64.tar.gz
-TOOLCHAIN_LINUX=https://github.com/xpack-dev-tools/arm-none-eabi-gcc-xpack/releases/download/v10.3.1-2.3/xpack-arm-none-eabi-gcc-10.3.1-2.3-linux-x64.tar.gz
-TOOLCHAIN_WIN32=https://github.com/xpack-dev-tools/arm-none-eabi-gcc-xpack/releases/download/v10.3.1-2.3/xpack-arm-none-eabi-gcc-10.3.1-2.3-win32-x64.zip
+# Downloads and re-zips toolchains required for ARM Development in COMP2300
+
+# Toolchain: XPack ARM none EABI GCC
+
+# https://github.com/xpack-dev-tools/arm-none-eabi-gcc-xpack/releases/download/v10.3.1-2.3/xpack-arm-none-eabi-gcc-10.3.1-2.3-linux-x64.tar.gz
 
 TCVER=10.3.1-2.3
 TCBASE=https://github.com/xpack-dev-tools/arm-none-eabi-gcc-xpack/releases/download/v
@@ -14,6 +16,10 @@ TCDARWIN_URL=$(TCBASE)$(TCVER)/$(TCDARWIN)
 TCLINUX_URL=$(TCBASE)$(TCVER)/$(TCLINUX)
 TCWIN32_URL=$(TCBASE)$(TCVER)/$(TCWIN32)
 
+# OpenOCD
+
+# https://github.com/xpack-dev-tools/openocd-xpack/releases/download/v0.11.0-3/xpack-openocd-0.11.0-3-linux-x64.tar.gz
+
 OCDVER=0.11.0-3
 OCDBASE=https://github.com/xpack-dev-tools/openocd-xpack/releases/download/v
 OCDNAME=xpack-openocd-
@@ -22,10 +28,20 @@ OCDDARWIN=$(OCDNAME)$(OCDVER)-darwin-x64.tar.gz
 OCDLINUX=$(OCDNAME)$(OCDVER)-linux-x64.tar.gz
 OCDWIN32=$(OCDNAME)$(OCDVER)-win32-x64.zip
 
-OPENOCD_DARWIN=https://github.com/xpack-dev-tools/openocd-xpack/releases/download/v0.11.0-3/xpack-openocd-0.11.0-3-darwin-x64.tar.gz
-OPENOCD_LINUX=https://github.com/xpack-dev-tools/openocd-xpack/releases/download/v0.11.0-3/xpack-openocd-0.11.0-3-linux-x64.tar.gz
-OPENOCD_WIN32=https://github.com/xpack-dev-tools/openocd-xpack/releases/download/v0.11.0-3/xpack-openocd-0.11.0-3-win32-x64.zip
+# DiscoServer
+# ARM Emulator
 
+DSVER=1.1.3
+DSBASE=https://github.com/cpmpercussion/comp2300-discoserver/releases/download/v
+
+DSDARWIN=discoserver-darwin.zip
+DSLINUX=discoserver-linux.zip
+DSWIN32=discoserver-win32.zip
+
+.PHONY: all
+all: darwin linux win32
+
+.PHONY: darwin
 darwin:
 	mkdir -p darwin
 	wget -nc  $(TCBASE)$(TCVER)/$(TCDARWIN)
@@ -34,11 +50,12 @@ darwin:
 	wget -nc $(OCDBASE)$(OCDVER)/$(OCDDARWIN)
 	tar -xzf $(OCDDARWIN) -C darwin/
 	mv darwin/$(OCDNAME)$(OCDVER) darwin/openocd
-	wget -nc https://github.com/cpmpercussion/comp2300-discoserver/releases/download/v1.1.3/discoserver-darwin.zip
-	unzip -o discoserver-darwin.zip -d darwin
+	wget -nc $(DSBASE)$(DSVER)/$(DSDARWIN) 
+	unzip -o $(DSDARWIN) -d darwin
 	cd darwin; zip -r ../toolchain-darwin.zip *
 	rm -fr darwin
 
+.PHONY: linux
 linux:
 	mkdir -p linux
 	wget -nc  $(TCBASE)$(TCVER)/$(TCLINUX)
@@ -47,11 +64,12 @@ linux:
 	wget -nc $(OCDBASE)$(OCDVER)/$(OCDLINUX)
 	tar -xzf $(OCDLINUX) -C linux/
 	mv linux/$(OCDNAME)$(OCDVER) linux/openocd
-	wget -nc https://github.com/cpmpercussion/comp2300-discoserver/releases/download/v1.1.3/discoserver-linux.zip
-	unzip -o discoserver-linux.zip -d linux
+	wget -nc $(DSBASE)$(DSVER)/$(DSLINUX) 
+	unzip -o $(DSLINUX) -d linux
 	cd linux; zip -r ../toolchain-linux.zip *
 	rm -fr linux
 
+.PHONY: win32
 win32:
 	mkdir -p win32
 	wget -nc  $(TCBASE)$(TCVER)/$(TCWIN32)
@@ -60,11 +78,12 @@ win32:
 	wget -nc $(OCDBASE)$(OCDVER)/$(OCDWIN32)
 	unzip -o $(OCDWIN32) -d win32/
 	mv win32/$(OCDNAME)$(OCDVER) win32/openocd
-	wget -nc https://github.com/cpmpercussion/comp2300-discoserver/releases/download/v1.1.3/discoserver-win32.zip
-	unzip -o discoserver-win32.zip -d win32
+	wget -nc $(DSBASE)$(DSVER)/$(DSWIN32) 
+	unzip -o $(DSWIN32) -d win32
 	cd win32; zip -r ../toolchain-win32.zip *
 	rm -fr win32
 
+.PHONY: unzip
 unzip:
 	mkdir -p darwin
 	unzip toolchain-darwin.zip -d darwin
@@ -85,6 +104,7 @@ get-discoserver:
 	wget -nc https://github.com/cpmpercussion/comp2300-discoserver/releases/download/v1.1.3/discoserver-win32.zip
 	mv discoserver-*.zip discoservers/
 
+.PHONY: clean
 clean:
 	rm -fr linux/*
 	rm -fr win32/*
