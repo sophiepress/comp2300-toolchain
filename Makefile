@@ -26,7 +26,7 @@ OPENOCD_DARWIN=https://github.com/xpack-dev-tools/openocd-xpack/releases/downloa
 OPENOCD_LINUX=https://github.com/xpack-dev-tools/openocd-xpack/releases/download/v0.11.0-3/xpack-openocd-0.11.0-3-linux-x64.tar.gz
 OPENOCD_WIN32=https://github.com/xpack-dev-tools/openocd-xpack/releases/download/v0.11.0-3/xpack-openocd-0.11.0-3-win32-x64.zip
 
-build-darwin:
+darwin:
 	mkdir -p darwin
 	wget -nc  $(TCBASE)$(TCVER)/$(TCDARWIN)
 	tar -xzf $(TCDARWIN) -C darwin/
@@ -39,7 +39,7 @@ build-darwin:
 	cd darwin; zip -r ../toolchain-darwin.zip *
 	rm -fr darwin
 
-build-linux:
+linux:
 	mkdir -p linux
 	wget -nc  $(TCBASE)$(TCVER)/$(TCLINUX)
 	tar -xzf $(TCLINUX) -C linux/
@@ -52,7 +52,7 @@ build-linux:
 	cd linux; zip -r ../toolchain-linux.zip *
 	rm -fr linux
 
-build-win32:
+win32:
 	mkdir -p win32
 	wget -nc  $(TCBASE)$(TCVER)/$(TCWIN32)
 	unzip -o $(TCWIN32) -d win32/
@@ -64,6 +64,14 @@ build-win32:
 	unzip -o discoserver-win32.zip -d win32
 	cd win32; zip -r ../toolchain-win32.zip *
 	rm -fr win32
+
+unzip:
+	mkdir -p darwin
+	unzip toolchain-darwin.zip -d darwin
+	mkdir -p linux
+	unzip toolchain-linux.zip -d linux
+	mkdir -p win32
+	unzip toolchain-win32.zip -d win32
 
 get-original:
 	wget https://github.com/paked/stm32-vscode-simple/releases/download/v1.0/toolchain-linux.zip
