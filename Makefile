@@ -89,35 +89,8 @@ unzip:
 	mkdir -p win32
 	unzip toolchain-win32.zip -d win32
 
-get-original:
-	wget https://github.com/paked/stm32-vscode-simple/releases/download/v1.0/toolchain-linux.zip
-	wget https://github.com/paked/stm32-vscode-simple/releases/download/v1.0/toolchain-darwin.zip
-	wget https://github.com/paked/stm32-vscode-simple/releases/download/v1.0/toolchain-win32.zip
-	mv toolchain-*.zip zips/
-
-get-discoserver:
-	wget -nc https://github.com/cpmpercussion/comp2300-discoserver/releases/download/v1.1.3/discoserver-linux.zip
-	wget -nc https://github.com/cpmpercussion/comp2300-discoserver/releases/download/v1.1.3/discoserver-darwin.zip
-	wget -nc https://github.com/cpmpercussion/comp2300-discoserver/releases/download/v1.1.3/discoserver-win32.zip
-	mv discoserver-*.zip discoservers/
-
 .PHONY: clean
 clean:
-	rm -fr linux/*
-	rm -fr win32/*
-	rm -fr darwin/*
-
-update:
-	# linux
-	unzip discoservers/discoserver-linux.zip discoserver
-	zip zips/toolchain-linux.zip discoserver
-	rm discoserver
-	# darwin
-	unzip discoservers/discoserver-darwin.zip discoserver
-	zip zips/toolchain-darwin.zip discoserver
-	rm discoserver
-	# windows
-	unzip discoservers/discoserver-win32.zip discoserver.exe
-	zip zips/toolchain-win32.zip discoserver.exe
-	rm discoserver.exe
+	rm *.zip
+	rm *.tar.gz
 
