@@ -43,10 +43,10 @@ build-linux:
 	mkdir -p linux
 	wget -nc  $(TCBASE)$(TCVER)/$(TCLINUX)
 	tar -xzf $(TCLINUX) -C linux/
-	mv darwin/$(TCNAME)$(TCVER) linux/arm-none-eabi
+	mv linux/$(TCNAME)$(TCVER) linux/arm-none-eabi
 	wget -nc $(OCDBASE)$(OCDVER)/$(OCDLINUX)
 	tar -xzf $(OCDLINUX) -C linux/
-	mv darwin/$(OCDNAME)$(OCDVER) linux/openocd
+	mv linux/$(OCDNAME)$(OCDVER) linux/openocd
 	wget -nc https://github.com/cpmpercussion/comp2300-discoserver/releases/download/v1.1.3/discoserver-linux.zip
 	unzip -o discoserver-linux.zip -d linux
 	cd linux; zip -r ../toolchain-linux.zip *
