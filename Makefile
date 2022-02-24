@@ -39,10 +39,9 @@ DSLINUX=discoserver-linux.zip
 DSWIN32=discoserver-win32.zip
 
 .PHONY: all
-all: darwin linux win32
+all: toolchain-darwin.zip toolchain-linux.zip toolchain-win32.zip
 
-.PHONY: darwin
-darwin:
+toolchain-darwin.zip:
 	mkdir -p darwin
 	wget -nc  $(TCBASE)$(TCVER)/$(TCDARWIN)
 	tar -xzf $(TCDARWIN) -C darwin/
@@ -55,8 +54,7 @@ darwin:
 	cd darwin; zip -r ../toolchain-darwin.zip *
 	rm -fr darwin
 
-.PHONY: linux
-linux:
+toolchain-linux.zip:
 	mkdir -p linux
 	wget -nc  $(TCBASE)$(TCVER)/$(TCLINUX)
 	tar -xzf $(TCLINUX) -C linux/
@@ -69,8 +67,7 @@ linux:
 	cd linux; zip -r ../toolchain-linux.zip *
 	rm -fr linux
 
-.PHONY: win32
-win32:
+toolchain-win32.zip:
 	mkdir -p win32
 	wget -nc  $(TCBASE)$(TCVER)/$(TCWIN32)
 	unzip -o $(TCWIN32) -d win32/
