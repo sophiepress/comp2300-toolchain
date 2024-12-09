@@ -2,9 +2,9 @@
 
 # Toolchain: XPack ARM none EABI GCC
 
-# https://github.com/xpack-dev-tools/arm-none-eabi-gcc-xpack/releases/download/v10.3.1-2.3/xpack-arm-none-eabi-gcc-10.3.1-2.3-linux-x64.tar.gz
+# https://github.com/xpack-dev-tools/arm-none-eabi-gcc-xpack/releases/download/v13.3.1-1.1/xpack-arm-none-eabi-gcc-13.3.1-1.1-linux-x64.tar.gz
 
-TCVER=10.3.1-2.3
+TCVER=13.3.1-1.1
 TCBASE=https://github.com/xpack-dev-tools/arm-none-eabi-gcc-xpack/releases/download/v
 TCNAME=xpack-arm-none-eabi-gcc-
 
@@ -18,9 +18,9 @@ TCWIN32_URL=$(TCBASE)$(TCVER)/$(TCWIN32)
 
 # OpenOCD
 
-# https://github.com/xpack-dev-tools/openocd-xpack/releases/download/v0.11.0-3/xpack-openocd-0.11.0-3-linux-x64.tar.gz
+# https://github.com/xpack-dev-tools/openocd-xpack/releases/download/v0.12.0-4/xpack-openocd-0.12.0-4-linux-x64.tar.gz
 
-OCDVER=0.11.0-3
+OCDVER=0.12.0-4
 OCDBASE=https://github.com/xpack-dev-tools/openocd-xpack/releases/download/v
 OCDNAME=xpack-openocd-
 
@@ -31,8 +31,8 @@ OCDWIN32=$(OCDNAME)$(OCDVER)-win32-x64.zip
 # DiscoServer
 # ARM Emulator
 
-DSVER=1.1.3
-DSBASE=https://github.com/cpmpercussion/comp2300-discoserver/releases/download/v
+DSVER=1.3.0
+DSBASE=https://github.com/sophiepress/comp2300-discoserver/releases/download/v
 
 DSDARWIN=discoserver-darwin.zip
 DSLINUX=discoserver-linux.zip
